@@ -1,26 +1,264 @@
 @import "tailwindcss";
 
+/* ——— マチコエ デザイントークン ——— */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --mc-primary-50:  #ecfdf8;
+  --mc-primary-100: #d1f7ec;
+  --mc-primary-200: #a4ecd7;
+  --mc-primary-300: #6fdcbd;
+  --mc-primary-400: #2fc3a0;
+  --mc-primary-500: #0ea57e;
+  --mc-primary-600: #0d8a6a;
+  --mc-primary-700: #0f6e56;
+  --mc-primary-800: #115947;
+  --mc-primary-900: #104639;
+
+  --mc-accent-100: #ffedd5;
+  --mc-accent-500: #f97316;
+  --mc-accent-600: #ea580c;
+
+  --mc-bg:          #f6faf9;
+  --mc-bg-soft:     #eef5f3;
+  --mc-surface:     #ffffff;
+  --mc-ink-900:     #0f2a24;
+  --mc-ink-700:     #2b4a43;
+  --mc-ink-500:     #5c7a73;
+  --mc-ink-400:     #8aa39d;
+  --mc-border:      #d9e6e2;
+  --mc-border-soft: #e8efec;
+
+  --mc-agree-500:   #16a34a;
+  --mc-agree-100:   #dcfce7;
+  --mc-agree-700:   #166534;
+  --mc-cond-500:    #d9a400;
+  --mc-cond-100:    #fef3c7;
+  --mc-cond-700:    #854d0e;
+  --mc-against-500: #e11d48;
+  --mc-against-100: #ffe4e6;
+  --mc-against-700: #9f1239;
+
+  --cat-edu:    #2563eb;  --cat-edu-bg:   #dbeafe;
+  --cat-env:    #15803d;  --cat-env-bg:   #dcfce7;
+  --cat-welf:   #b45309;  --cat-welf-bg:  #fef3c7;
+  --cat-infra:  #6d28d9;  --cat-infra-bg: #ede9fe;
+  --cat-econ:   #be185d;  --cat-econ-bg:  #fce7f3;
+  --cat-tour:   #0369a1;  --cat-tour-bg:  #e0f2fe;
+
+  --mc-font-body:    "Noto Sans JP", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --mc-font-logo:    "Zen Maru Gothic", "Noto Sans JP", sans-serif;
+  --mc-font-display: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+
+  --mc-shadow-sm: 0 1px 3px rgba(15,42,36,.06), 0 1px 2px rgba(15,42,36,.04);
+  --mc-shadow-md: 0 4px 14px rgba(15,42,36,.08), 0 1px 2px rgba(15,42,36,.04);
+  --mc-shadow-lg: 0 10px 30px rgba(15,42,36,.10), 0 2px 6px rgba(15,42,36,.04);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Base */
+html, body {
+  background: var(--mc-bg);
+  color: var(--mc-ink-900);
+  font-family: var(--mc-font-body);
+  font-feature-settings: "palt";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  margin: 0;
+}
+* { box-sizing: border-box; }
+a { color: inherit; }
+
+/* Font utilities */
+.font-logo    { font-family: var(--mc-font-logo);    letter-spacing: 0.02em; }
+.font-display { font-family: var(--mc-font-display); letter-spacing: 0.01em; }
+.font-num     { font-family: "Inter", sans-serif;     font-variant-numeric: tabular-nums; }
+
+/* Keyword badge */
+.kw-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+.kw-dot { width: 6px; height: 6px; border-radius: 999px; display: inline-block; background: currentColor; flex-shrink: 0; }
+.kw-edu  { color: var(--cat-edu);   background: var(--cat-edu-bg); }
+.kw-env  { color: var(--cat-env);   background: var(--cat-env-bg); }
+.kw-welf { color: var(--cat-welf);  background: var(--cat-welf-bg); }
+.kw-infra{ color: var(--cat-infra); background: var(--cat-infra-bg); }
+.kw-econ { color: var(--cat-econ);  background: var(--cat-econ-bg); }
+.kw-tour { color: var(--cat-tour);  background: var(--cat-tour-bg); }
+
+/* Topic card */
+.topic-card {
+  background: #fff;
+  border: 1px solid var(--mc-border);
+  border-radius: 16px;
+  padding: 16px 16px 14px 20px;
+  box-shadow: 0 2px 8px rgba(15,42,36,.07), 0 1px 2px rgba(15,42,36,.04);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow .18s ease, transform .18s ease;
+}
+.topic-card:hover {
+  box-shadow: var(--mc-shadow-md);
+  transform: translateY(-2px);
+}
+.topic-card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 14px; bottom: 14px;
+  width: 4px;
+  border-radius: 4px;
+  background: var(--accent-color, var(--mc-primary-500));
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Stance buttons */
+.stance-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1.5px solid var(--mc-border);
+  color: var(--mc-ink-700);
+  font-family: var(--mc-font-body);
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all .16s ease;
+}
+.stance-btn__dot {
+  width: 10px; height: 10px;
+  border-radius: 999px;
+  background: var(--stance-color);
+  box-shadow: 0 0 0 3px rgba(0,0,0,.08);
+  flex-shrink: 0;
+}
+.stance-btn.is-selected {
+  background: var(--stance-color);
+  border-color: var(--stance-color);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.18);
+}
+.stance-btn.is-selected .stance-btn__dot {
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.35);
+}
+.stance-btn--agree   { --stance-color: var(--mc-agree-500); }
+.stance-btn--cond    { --stance-color: var(--mc-cond-500); }
+.stance-btn--against { --stance-color: var(--mc-against-500); }
+
+/* Primary button */
+.btn-mc-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--mc-primary-500);
+  color: #fff;
+  font-weight: 500;
+  padding: 9px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  border: 0;
+  box-shadow: 0 2px 6px rgba(14,110,86,.28);
+  cursor: pointer;
+  transition: background .15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-mc-primary:hover { background: var(--mc-primary-600); }
+.btn-mc-primary--lg   { padding: 12px 20px; font-size: 15px; border-radius: 12px; }
+
+/* Ghost button */
+.btn-mc-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid var(--mc-border);
+  color: var(--mc-ink-700);
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .15s ease;
+  text-decoration: none;
+}
+.btn-mc-ghost:hover { background: var(--mc-bg-soft); }
+
+/* AI card */
+.ai-card {
+  background: #fff;
+  border: 1px solid var(--mc-border-soft);
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: var(--mc-shadow-sm);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Bar chart */
+.bar-track { width: 100%; height: 10px; background: var(--mc-border-soft); border-radius: 999px; overflow: hidden; }
+.bar-fill  { height: 100%; border-radius: 999px; transition: width .4s ease; }
+
+/* Surface card */
+.surface-card {
+  background: #fff;
+  border: 1px solid var(--mc-border-soft);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--mc-shadow-sm);
 }
+
+/* Label / eyebrow */
+.eyebrow-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mc-ink-500);
+  font-family: "Inter", sans-serif;
+}
+
+/* AI badge */
+.ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mc-primary-700);
+  font-family: "Inter", sans-serif;
+}
+.ai-badge__icon {
+  width: 24px; height: 24px;
+  border-radius: 999px;
+  background: var(--mc-primary-50);
+  color: var(--mc-primary-700);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon button */
+.icon-btn {
+  width: 36px; height: 36px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid var(--mc-border-soft);
+  color: var(--mc-ink-700);
+  cursor: pointer;
+  transition: background .15s;
+}
+.icon-btn:hover { background: var(--mc-bg-soft); }
