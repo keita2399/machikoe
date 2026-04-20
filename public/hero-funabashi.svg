@@ -1,0 +1,92 @@
+<svg width="832" height="320" viewBox="0 0 832 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sky gradient -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="320" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#bae6fd"/>
+      <stop offset="60%" stop-color="#e0f2fe"/>
+      <stop offset="100%" stop-color="#dcfce7"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="220" x2="0" y2="320" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#86efac"/>
+      <stop offset="100%" stop-color="#4ade80"/>
+    </linearGradient>
+    <linearGradient id="wm1" x1="200" y1="140" x2="200" y2="220" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4ade80"/>
+      <stop offset="100%" stop-color="#16a34a"/>
+    </linearGradient>
+    <linearGradient id="wm2" x1="420" y1="150" x2="420" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4ade80"/>
+      <stop offset="100%" stop-color="#15803d"/>
+    </linearGradient>
+    <linearGradient id="pear1" x1="620" y1="100" x2="620" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#ca8a04"/>
+    </linearGradient>
+    <linearGradient id="pear2" x1="720" y1="110" x2="720" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="100%" stop-color="#a16207"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="832" height="320" fill="url(#sky)"/>
+
+  <!-- Clouds -->
+  <ellipse cx="100" cy="60" rx="60" ry="22" fill="white" opacity="0.8"/>
+  <ellipse cx="140" cy="50" rx="45" ry="20" fill="white" opacity="0.8"/>
+  <ellipse cx="60" cy="55" rx="40" ry="18" fill="white" opacity="0.7"/>
+  <ellipse cx="680" cy="50" rx="55" ry="20" fill="white" opacity="0.7"/>
+  <ellipse cx="720" cy="42" rx="40" ry="18" fill="white" opacity="0.7"/>
+
+  <!-- Ground -->
+  <rect x="0" y="220" width="832" height="100" fill="url(#ground)"/>
+
+  <!-- Watermelon vine lines -->
+  <path d="M80 220 Q120 200 160 210 Q200 215 240 205" stroke="#15803d" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M300 220 Q360 195 420 210" stroke="#15803d" stroke-width="2" fill="none" opacity="0.6"/>
+
+  <!-- Watermelon 1 (big) -->
+  <ellipse cx="200" cy="195" rx="52" ry="38" fill="url(#wm1)"/>
+  <ellipse cx="200" cy="195" rx="52" ry="38" fill="none" stroke="#15803d" stroke-width="2"/>
+  <!-- Stripes -->
+  <path d="M155 185 Q200 165 245 185" stroke="#15803d" stroke-width="3" fill="none" opacity="0.5"/>
+  <path d="M152 200 Q200 180 248 200" stroke="#15803d" stroke-width="3" fill="none" opacity="0.5"/>
+  <path d="M157 215 Q200 198 243 215" stroke="#15803d" stroke-width="2.5" fill="none" opacity="0.4"/>
+  <!-- Highlight -->
+  <ellipse cx="182" cy="180" rx="14" ry="9" fill="white" opacity="0.25"/>
+
+  <!-- Watermelon 2 (medium) -->
+  <ellipse cx="420" cy="198" rx="42" ry="30" fill="url(#wm2)"/>
+  <path d="M382 192 Q420 175 458 192" stroke="#14532d" stroke-width="2.5" fill="none" opacity="0.5"/>
+  <path d="M380 205 Q420 188 460 205" stroke="#14532d" stroke-width="2.5" fill="none" opacity="0.5"/>
+  <ellipse cx="405" cy="186" rx="11" ry="7" fill="white" opacity="0.2"/>
+
+  <!-- Watermelon slice (cut) -->
+  <path d="M560 220 L600 140 L640 220 Z" fill="#f87171" stroke="#dc2626" stroke-width="1.5"/>
+  <ellipse cx="600" cy="220" rx="40" ry="8" fill="#fca5a5" opacity="0.5"/>
+  <!-- Seeds -->
+  <ellipse cx="593" cy="175" rx="3" ry="5" fill="#1f2937" transform="rotate(-10 593 175)"/>
+  <ellipse cx="608" cy="185" rx="3" ry="5" fill="#1f2937" transform="rotate(8 608 185)"/>
+  <ellipse cx="598" cy="200" rx="3" ry="5" fill="#1f2937"/>
+  <!-- Rind -->
+  <path d="M560 220 L600 140 L640 220" fill="none" stroke="#16a34a" stroke-width="6" stroke-linejoin="round"/>
+
+  <!-- Pear 1 -->
+  <path d="M620 195 C600 195 595 175 598 158 C600 145 610 138 620 138 C630 138 640 145 642 158 C645 175 640 195 620 195 Z" fill="url(#pear1)"/>
+  <path d="M620 138 L622 125 Q624 118 620 115 Q617 112 615 116" stroke="#92400e" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <ellipse cx="610" cy="162" rx="8" ry="12" fill="white" opacity="0.2"/>
+
+  <!-- Pear 2 -->
+  <path d="M730 200 C710 200 704 178 707 158 C709 143 719 135 730 135 C741 135 751 143 753 158 C756 178 750 200 730 200 Z" fill="url(#pear2)"/>
+  <path d="M730 135 L732 120 Q734 112 730 109 Q727 106 724 110" stroke="#78350f" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <ellipse cx="720" cy="165" rx="8" ry="12" fill="white" opacity="0.18"/>
+
+  <!-- Leaf near pear -->
+  <path d="M622 118 Q635 108 648 115 Q638 120 630 118 Z" fill="#4ade80"/>
+  <path d="M732 112 Q745 102 758 110 Q748 116 739 113 Z" fill="#86efac"/>
+
+  <!-- Subtle field rows -->
+  <line x1="0" y1="240" x2="832" y2="240" stroke="#15803d" stroke-width="1" opacity="0.2"/>
+  <line x1="0" y1="260" x2="832" y2="260" stroke="#15803d" stroke-width="1" opacity="0.15"/>
+  <line x1="0" y1="280" x2="832" y2="280" stroke="#15803d" stroke-width="1" opacity="0.1"/>
+</svg>

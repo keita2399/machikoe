@@ -7,17 +7,18 @@ datasource db {
 }
 
 model Topic {
-  id          String    @id @default(cuid())
-  title       String
-  summary     String
-  rawText     String
-  meetingDate DateTime
-  meetingName String
-  keywords    String[]
-  sourceUrl   String?
-  status      String    @default("active")
-  createdAt   DateTime  @default(now())
-  opinions    Opinion[]
+  id           String    @id @default(cuid())
+  municipality String    @default("fujikawaguchiko")
+  title        String
+  summary      String
+  rawText      String
+  meetingDate  DateTime
+  meetingName  String
+  keywords     String[]
+  sourceUrl    String?
+  status       String    @default("active")
+  createdAt    DateTime  @default(now())
+  opinions     Opinion[]
 }
 
 model Opinion {
