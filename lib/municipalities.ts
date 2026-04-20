@@ -12,6 +12,7 @@ export interface Municipality {
   xHashtags: string;
   inquiryUrl: string;
   inquiryNote: string;
+  gaId: string | undefined;
 }
 
 export const MUNICIPALITIES: Record<MunicipalitySlug, Municipality> = {
@@ -27,6 +28,7 @@ export const MUNICIPALITIES: Record<MunicipalitySlug, Municipality> = {
     xHashtags: "#富士河口湖 #マチコエ",
     inquiryUrl: "https://www.town.fujikawaguchiko.lg.jp/inquiry/inquiry.php",
     inquiryNote: "電話でも受け付けています：政策企画課 ☎ 0555-72-1129（平日 8:30〜17:15）",
+    gaId: process.env.NEXT_PUBLIC_GA_FUJIKAWAGUCHIKO,
   },
   funabashi: {
     slug: "funabashi",
@@ -40,6 +42,7 @@ export const MUNICIPALITIES: Record<MunicipalitySlug, Municipality> = {
     xHashtags: "#船橋市 #マチコエ",
     inquiryUrl: "https://www.city.funabashi.lg.jp/inquiry/",
     inquiryNote: "電話でも受け付けています：市政情報センター ☎ 047-436-2100（平日 8:30〜17:00）",
+    gaId: process.env.NEXT_PUBLIC_GA_FUNABASHI,
   },
 };
 
