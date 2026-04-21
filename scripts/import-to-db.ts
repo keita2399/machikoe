@@ -66,6 +66,15 @@ async function importData() {
     console.log(`[${++count}/${groupEntries.length}] ${first.meeting.slice(0, 40)}... (${first.keyword})`);
 
     try {
+      const meetingNameShort = first.meeting.split("(")[0].trim();
+      const existing = await prisma.topic.findFirst({
+        where: { municipality: "fujikawaguchiko", meetingName: meetingNameShort, keywords: { has: first.keyword } },
+      });
+      if (existing) {
+        console.log(`  ⏭ スキップ（既存）`);
+        continue;
+      }
+
       const summary = await summarize(combinedText, first.keyword);
 
       // 日付パース

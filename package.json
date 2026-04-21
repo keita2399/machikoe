@@ -12,6 +12,8 @@
     "scrape": "ts-node --project tsconfig.scripts.json scripts/scrape-kaigiroku.ts",
     "summarize": "ts-node --project tsconfig.scripts.json scripts/summarize-raw.ts",
     "import-db": "ts-node --project tsconfig.scripts.json scripts/import-to-db.ts",
+    "scrape:funabashi": "ts-node --project tsconfig.scripts.json scripts/scrape-funabashi.ts",
+    "import:funabashi": "ts-node --project tsconfig.scripts.json scripts/import-funabashi.ts",
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:studio": "prisma studio"

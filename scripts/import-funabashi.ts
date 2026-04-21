@@ -66,6 +66,14 @@ async function importData() {
     console.log(`[${++count}/${groupEntries.length}] ${first.meeting.slice(0, 40)}... (${first.keyword})`);
 
     try {
+      const existing = await prisma.topic.findFirst({
+        where: { municipality: "funabashi", meetingName: first.meeting, keywords: { has: first.keyword } },
+      });
+      if (existing) {
+        console.log(`  ⏭ スキップ（既存）`);
+        continue;
+      }
+
       const summary = await summarize(combinedText, first.keyword);
 
       const [year, month] = first.date ? first.date.split("-").map(Number) : [2025, 1];

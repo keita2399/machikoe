@@ -1,0 +1,55 @@
+name: 議事録スクレイピング
+
+on:
+  schedule:
+    # 毎週月曜日 6:00 JST (= 日曜 21:00 UTC)
+    - cron: "0 21 * * 0"
+  workflow_dispatch: # 手動実行ボタン
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: 依存パッケージインストール
+        run: npm ci
+
+      - name: Playwright ブラウザインストール
+        run: npx playwright install chromium --with-deps
+
+      - name: Prisma クライアント生成
+        run: npx prisma generate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: 富士河口湖町 スクレイピング
+        run: npm run scrape
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      - name: 富士河口湖町 DB取り込み
+        run: npm run import-db
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      - name: 船橋市 スクレイピング
+        run: npm run scrape:funabashi
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      - name: 船橋市 DB取り込み
+        run: npm run import:funabashi
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
