@@ -39,6 +39,21 @@ async function sleep(ms: number) {
   return new Promise(r => setTimeout(r, ms));
 }
 
+async function sendLineNotification(titles: string[]): Promise<void> {
+  const token = process.env.LINE_CHANNEL_ACCESS_TOKEN_FUNABASHI;
+  const userId = process.env.LINE_USER_ID_FUNABASHI;
+  if (!token || !userId) return;
+
+  const list = titles.map(t => `・${t}`).join("\n");
+  const text = `📋 船橋市 新着議題 ${titles.length}件\n\n${list}\n\nhttps://machikoe.vercel.app/funabashi`;
+
+  await fetch("https://api.line.me/v2/bot/message/push", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ to: userId, messages: [{ type: "text", text }] }),
+  });
+}
+
 async function importData() {
   if (!fs.existsSync(INPUT_PATH)) {
     console.error("データファイルが見つかりません。先にスクレイピングを実行してください。");
@@ -59,6 +74,7 @@ async function importData() {
   console.log(`${groupEntries.length} 議題をDBに登録します...`);
 
   let count = 0;
+  const newTitles: string[] = [];
   for (const [, recs] of groupEntries) {
     const first = recs[0];
     const combinedText = recs.map(r => r.full_text).join("\n\n").slice(0, 2000);
@@ -79,10 +95,11 @@ async function importData() {
       const [year, month] = first.date ? first.date.split("-").map(Number) : [2025, 1];
       const meetingDate = new Date(year, (month || 1) - 1, 1);
 
+      const title = `${first.keyword}に関する審議 - ${first.meeting}`;
       await prisma.topic.create({
         data: {
           municipality: "funabashi",
-          title: `${first.keyword}に関する審議 - ${first.meeting}`,
+          title,
           summary,
           rawText: combinedText,
           meetingDate,
@@ -92,6 +109,7 @@ async function importData() {
           status: "active",
         },
       });
+      newTitles.push(title);
 
       await sleep(1500);
     } catch (err) {
@@ -101,6 +119,14 @@ async function importData() {
 
   await prisma.$disconnect();
   console.log(`\n✅ ${count} 件をDBに登録しました`);
+
+  if (newTitles.length > 0) {
+    console.log(`📩 LINE通知を送信します...`);
+    await sendLineNotification(newTitles);
+    console.log(`✅ LINE通知完了`);
+  } else {
+    console.log(`新着なし・LINE通知スキップ`);
+  }
 }
 
 importData().catch(err => {

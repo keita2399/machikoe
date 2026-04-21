@@ -36,11 +36,13 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
-      - name: 富士河口湖町 DB取り込み
+      - name: 富士河口湖町 DB取り込み・LINE通知
         run: npm run import-db
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          LINE_CHANNEL_ACCESS_TOKEN_FUJIKAWAGUCHIKO: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN_FUJIKAWAGUCHIKO }}
+          LINE_USER_ID_FUJIKAWAGUCHIKO: ${{ secrets.LINE_USER_ID_FUJIKAWAGUCHIKO }}
 
       - name: 船橋市 スクレイピング
         run: npm run scrape:funabashi
@@ -48,8 +50,10 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
-      - name: 船橋市 DB取り込み
+      - name: 船橋市 DB取り込み・LINE通知
         run: npm run import:funabashi
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          LINE_CHANNEL_ACCESS_TOKEN_FUNABASHI: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN_FUNABASHI }}
+          LINE_USER_ID_FUNABASHI: ${{ secrets.LINE_USER_ID_FUNABASHI }}
